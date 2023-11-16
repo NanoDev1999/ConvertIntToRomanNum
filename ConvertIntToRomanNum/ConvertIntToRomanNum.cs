@@ -7,10 +7,15 @@ class Result
     public static List<string> romanizer(List<int> numbers) {
         List<string> result = new List<string>();
 
-        foreach (var num in numbers) {
-            if (num >= 1 && num <= 1000) {
-                string romanNumeral = ConvertToRoman(num);
+        for (int i = 0; i < numbers.Count; i++) {
+            int num = numbers[i];
+            if (num >= 1 && num <= 1000) {  // constraint 1 <= numbers[i] <= 1000 which is num
+                string romanNumeral = ConvertIntToRomanNumerals(num);
                 result.Add(romanNumeral);
+
+                if(result.Count == 1000 || result.Count == 0) {    // constraint 1 <= n <= 1000 where n is the number of elements in numbers
+                    break;
+                }
             }
             else {
                 result.Add("Invalid input: " + num);
@@ -20,11 +25,8 @@ class Result
         return result;
     }
 
-    public static string ConvertToRoman(int num) {
-        if (num < 1 || num > 1000) {
-            return "Invalid input: " + num;
-        }
-
+    public static string ConvertIntToRomanNumerals(int num) {
+  
         string[] thousands = { "", "M", "MM", "MMM" };
         string[] hundreds = { "", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM" };
         string[] tens = { "", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC" };
@@ -42,13 +44,14 @@ class Result
 class Solution
 {
     public static void Main(string[] args) {
-        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+        string fileName = @"C:\Temp\ConvertIntToRomanNumResult.txt";
+        TextWriter textWriter = new StreamWriter(fileName);
 
-        int numbersCount = Convert.ToInt32(Console.ReadLine().Trim());
+        int numCount = Convert.ToInt32(Console.ReadLine().Trim());
 
         List<int> numbers = new List<int>();
 
-        for (int i = 0; i < numbersCount; i++) {
+        for (int i = 0; i < numCount; i++) {
             int numbersItem = Convert.ToInt32(Console.ReadLine().Trim());
             numbers.Add(numbersItem);
         }
